@@ -1,17 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Home from "@pages/Home";
-import Login from "@components/Login";
-import Register from "@components/Register";
-import Dashboard from "@components/Dashboard";
-import Admin from "@pages/Admin";
-import NotFound from "@pages/Notfound";
-import Header from "@components/Header";
-import Ofertas from "@pages/Ofertas";
-import Contacto from "@pages/Contacto";
-import ProductosPublic from "@pages/ProductosPublic";
-
-
+import Home from "./pages/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Dashboard from "./components/Dashboard";
+import Admin from "./pages/Admin";
+import NotFound from "./pages/Notfound";
+import Header from "./components/Header";
+import Ofertas from "./pages/Ofertas";
+import Contacto from "./pages/Contacto";
+import ProductosPublic from "./pages/ProductosPublic";
 
 function App() {
   return (
