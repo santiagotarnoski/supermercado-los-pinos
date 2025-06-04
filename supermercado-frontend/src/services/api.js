@@ -20,7 +20,7 @@ const getApiUrl = () => {
   if (hostname.includes('onrender.com')) {
     // Esto debería configurarse manualmente, pero como fallback:
     console.warn('⚠️ VITE_API_URL no está configurada. Usando fallback.');
-    return 'https://supermercado-los-pinos.onrender.com'; // ← CORREGIDO: Backend sirve en raíz
+    return 'https://supermercado-los-pinos.onrender.com/api'; // ← Backend usa prefijo /api/
   }
   
   // Fallback final
