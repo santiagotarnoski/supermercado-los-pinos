@@ -1,7 +1,7 @@
 // frontend/src/components/ProductosPublic.jsx - Versión con mejor debugging
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_BASE_URL, getImageUrl } from '../config/api.js';
+import { API_BASE_URL, getImageUrl } from '../services/api.js';
 import { 
   Search, 
   Filter, 
