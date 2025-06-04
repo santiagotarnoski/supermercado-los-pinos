@@ -16,11 +16,10 @@ const getApiUrl = () => {
   // En producción sin variable definida, intentar detectar automáticamente
   const hostname = window.location.hostname;
   
-  // Si es un dominio de Render, asumir que el backend está desplegado
+  // Si es un dominio de Render, usar la URL correcta del backend
   if (hostname.includes('onrender.com')) {
-    // Esto debería configurarse manualmente, pero como fallback:
     console.warn('⚠️ VITE_API_URL no está configurada. Usando fallback.');
-    return 'https://supermercado-los-pinos.onrender.com/api'; // ← Backend usa prefijo /api/
+    return 'https://supermercado-los-pinos.onrender.com/api'; // ← CORREGIDO: Con /api
   }
   
   // Fallback final
@@ -70,7 +69,7 @@ export const getImageUrl = (imagePath) => {
   return `${baseUrl}${imagePath}`;
 };
 
-// Configuración para axios
+// Configuración para axios - ✅ MEJORADA para debugging
 export const createApiClient = () => {
   const client = axios.create({
     baseURL: API_BASE_URL,
@@ -87,17 +86,32 @@ export const createApiClient = () => {
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
+      
+      // Debug info solo en desarrollo
+      if (import.meta.env.DEV) {
+        console.log('🔄 API Request:', config.method?.toUpperCase(), config.url);
+      }
+      
       return config;
     },
     (error) => {
+      console.error('❌ Request Error:', error);
       return Promise.reject(error);
     }
   );
   
   // Interceptor para manejar respuestas
   client.interceptors.response.use(
-    (response) => response,
+    (response) => {
+      // Debug info solo en desarrollo
+      if (import.meta.env.DEV) {
+        console.log('✅ API Response:', response.status, response.config.url);
+      }
+      return response;
+    },
     (error) => {
+      console.error('❌ API Error:', error.response?.status, error.response?.data);
+      
       if (error.response?.status === 401) {
         // Token expirado o inválido
         localStorage.removeItem('token');
