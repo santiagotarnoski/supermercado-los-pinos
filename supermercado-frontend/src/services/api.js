@@ -1,5 +1,6 @@
 // frontend/src/config/api.js
 // Configuración centralizada para la API
+import axios from 'axios';
 
 const getApiUrl = () => {
   // Si hay variable de entorno definida, usarla
@@ -15,11 +16,11 @@ const getApiUrl = () => {
   // En producción sin variable definida, intentar detectar automáticamente
   const hostname = window.location.hostname;
   
-  // Si es un dominio de Vercel, asumir que el backend está en Railway
-  if (hostname.includes('vercel.app')) {
+  // Si es un dominio de Render, asumir que el backend está desplegado
+  if (hostname.includes('onrender.com')) {
     // Esto debería configurarse manualmente, pero como fallback:
     console.warn('⚠️ VITE_API_URL no está configurada. Usando fallback.');
-    return 'https://tu-backend.railway.app/api'; // Cambiar por tu URL real
+    return 'https://tu-backend.onrender.com/api'; // Cambiar por tu URL real
   }
   
   // Fallback final
@@ -71,8 +72,6 @@ export const getImageUrl = (imagePath) => {
 
 // Configuración para axios
 export const createApiClient = () => {
-  const axios = require('axios');
-  
   const client = axios.create({
     baseURL: API_BASE_URL,
     timeout: 10000,
