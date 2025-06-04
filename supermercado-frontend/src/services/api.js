@@ -1,4 +1,4 @@
-// frontend/src/config/api.js
+// frontend/src/services/api.js
 // Configuración centralizada para la API
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ const getApiUrl = () => {
   if (hostname.includes('onrender.com')) {
     // Esto debería configurarse manualmente, pero como fallback:
     console.warn('⚠️ VITE_API_URL no está configurada. Usando fallback.');
-    return 'https://supermercado-los-pinos.onrender.com/api'; // Cambiar por tu URL real
+    return 'https://supermercado-los-pinos.onrender.com'; // ← CORREGIDO: Backend sirve en raíz
   }
   
   // Fallback final
