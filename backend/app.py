@@ -16,11 +16,12 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    # Configuración CORS para desarrollo y producción
+    # Configuración CORS para desarrollo y producción - ✅ CORREGIDA
     allowed_origins = [
         "http://localhost:5173",  # Desarrollo
         "http://localhost:3000",  # Desarrollo alternativo
         "http://localhost:4173",  # Vite preview
+        "https://supermercado-los-pinos.onrender.com",  # ← AGREGADO: Frontend de Render
         os.environ.get('FRONTEND_URL', 'http://localhost:5173')  # Producción
     ]
     
@@ -32,10 +33,12 @@ def create_app():
     elif frontend_url and frontend_url not in allowed_origins:
         allowed_origins.append(frontend_url)
     
+    # ✅ CORS más permisivo para solucionar problemas de conexión
     CORS(app, 
          resources={r"/api/*": {"origins": allowed_origins}}, 
          supports_credentials=True,
-         allow_headers=['Content-Type', 'Authorization'])
+         allow_headers=['Content-Type', 'Authorization', 'Access-Control-Allow-Credentials'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
     
     # Inicializar extensiones
     db.init_app(app)
